@@ -1,14 +1,28 @@
 #!/usr/bin/env python3
 
+import argparse
 import bdb
 import copy
+import importlib
+import traceback
 
 import jinja2
 
 def main():
-	import test
+	parser = argparse.ArgumentParser()
+	parser.add_argument('code', metavar='CODE', type=str)
+	parser.add_argument('-i', dest='module', type=str)
+	args = parser.parse_args()
+
+	run_globals = None
+	if args.module is not None:
+		module = importlib.import_module(args.module)
+		run_globals = {args.module: module}
 	tracer = Tracer()
-	tracer.runcall(test.hello)
+	try:
+		tracer.run(args.code, run_globals)
+	except:
+		traceback.print_exc()
 	tracer.handle_last()
 
 	trace = tracer.trace
@@ -25,15 +39,20 @@ def main():
 class Tracer(bdb.Bdb):
 	def __init__(self):
 		self.trace = []
+		self.seen_first_frame = False
 		self.last_frame = None
 		super().__init__()
 
 	def user_call(self, frame, argument_list):
-		self._add_trace(frame.f_back)
-		self.last_frame = frame
+		if not self.seen_first_frame: # skip the first frame
+			self.seen_first_frame = True
+		else:
+			self._add_trace(frame.f_back)
+			self.last_frame = frame
 
 	def handle_last(self):
-		self._add_trace(self.last_frame, True)
+		if self.last_frame is not None:
+			self._add_trace(self.last_frame, True)
 
 	def _add_trace(self, frame, last=False):
 		code = frame.f_code
@@ -41,7 +60,7 @@ class Tracer(bdb.Bdb):
 			lineno = code.co_firstlineno
 		else:
 			lineno = frame.f_lineno
-		depth = self.get_stack(frame, None)[1] - 1
+		depth = self.get_stack(frame, None)[1] - 2
 		frame_obj = Frame(code.co_filename, code.co_name, lineno, depth)
 		self.trace.append(frame_obj)
 
