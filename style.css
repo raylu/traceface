@@ -10,3 +10,14 @@ body {
 	font-family: monospace;
 	font-size: 16px;
 }
+
+div.frame {
+	margin: 10px 25px;
+}
+
+code {
+	display: block;
+	white-space: pre;
+	margin-left: 25px;
+	tab-size: 4;
+}
