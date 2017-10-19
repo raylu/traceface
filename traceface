@@ -73,6 +73,7 @@ class Tracer:
 			self._add_trace(self.last_frame, True)
 
 	def _add_trace(self, frame, last=False):
+		local_vars = frame.f_locals
 		code = frame.f_code
 		if last:
 			lineno = code.co_firstlineno
@@ -82,17 +83,18 @@ class Tracer:
 		while frame is not None and frame is not self.bottom_frame:
 			frame = frame.f_back
 			depth += 1
-		frame_obj = Frame(code.co_filename, code.co_name, lineno, depth)
+		frame_obj = Frame(code.co_filename, code.co_name, lineno, depth, local_vars)
 		self.trace.append(frame_obj)
 
 class Frame:
 	files = {}
 
-	def __init__(self, filepath, func_name, line_no, depth):
+	def __init__(self, filepath, func_name, line_no, depth, local_vars):
 		self.filepath = filepath
 		self.func_name = func_name
 		self.line_no = line_no
 		self.depth = depth
+		self.local_vars = local_vars
 
 		self.rendered = None
 

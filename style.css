@@ -25,6 +25,20 @@ code {
 	tab-size: 4;
 	background-color: #222;
 }
+
 code span.highlight {
 	background-color: #442;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table.local-vars {
+	margin-top: 8px;
+}
+
+td, th {
+	padding: 6px 12px;
+	border: 1px solid #aaa;
 }

@@ -12,6 +12,18 @@
 					({{ frame.filepath }}:{{ frame.line_no}})
 				</p>
 				<code>{{ frame.rendered or '' }}</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+					{% for key, value in frame.local_vars.items() %}
+						<tr>
+							<td>{{ key }}</td>
+							<td>{{ value }}</td>
+						</tr>
+					{% endfor %}
+				</table>
 			</div>
 		{% endfor %}
 	</body>
