@@ -52,6 +52,8 @@ class Tracer:
 	def trace_dispatch(self, frame, event, arg):
 		if event == 'call':
 			self.handle_call(frame)
+		elif event == 'exception':
+			self.handle_exception(frame)
 		return self.trace_dispatch
 
 	def handle_call(self, frame):
@@ -60,6 +62,11 @@ class Tracer:
 		elif frame.f_back is not self.bottom_frame: # skip the first 2 frames
 			self._add_trace(frame.f_back)
 			self.last_frame = frame
+
+	def handle_exception(self, frame):
+		if frame is not self.bottom_frame:
+			self._add_trace(frame)
+		self.last_frame = None
 
 	def handle_last(self):
 		if self.last_frame is not None:
