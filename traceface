@@ -33,11 +33,15 @@ class Tracer(bdb.Bdb):
 		self.last_frame = frame
 
 	def handle_last(self):
-		self._add_trace(self.last_frame)
+		self._add_trace(self.last_frame, True)
 
-	def _add_trace(self, frame):
+	def _add_trace(self, frame, last=False):
 		code = frame.f_code
-		self.trace.append(Frame(code.co_filename, code.co_name, frame.f_lineno))
+		if last:
+			lineno = code.co_firstlineno
+		else:
+			lineno = frame.f_lineno
+		self.trace.append(Frame(code.co_filename, code.co_name, lineno))
 
 class Frame:
 	files = {}
