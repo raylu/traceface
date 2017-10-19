@@ -23,7 +23,6 @@ def main():
 		tracer.run(args.code, run_globals)
 	except:
 		traceback.print_exc()
-	tracer.handle_last()
 
 	trace = tracer.trace
 	for frame in trace:
@@ -40,7 +39,6 @@ class Tracer:
 	def __init__(self):
 		self.trace = []
 		self.bottom_frame = None
-		self.last_frame = None
 
 	def run(self, code, run_globals=None):
 		sys.settrace(self.trace_dispatch)
@@ -61,16 +59,10 @@ class Tracer:
 			self.bottom_frame = frame
 		elif frame.f_back is not self.bottom_frame: # skip the first 2 frames
 			self._add_trace(frame.f_back)
-			self.last_frame = frame
 
 	def handle_exception(self, frame):
 		if frame is not self.bottom_frame:
 			self._add_trace(frame)
-		self.last_frame = None
-
-	def handle_last(self):
-		if self.last_frame is not None:
-			self._add_trace(self.last_frame, True)
 
 	def _add_trace(self, frame, last=False):
 		code = frame.f_code
