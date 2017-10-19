@@ -8,61 +8,211 @@
 		
 			<div class="frame" style="padding-left: 0px">
 				<p>
-					<b>makedirs</b>
-					(/usr/lib/python3.6/os.py:205)
+					<b>from_float</b>
+					(/usr/lib/python3.6/fractions.py:200)
 				</p>
-				<code>    raised.  This is recursive.
+				<code>        Beware that Fraction.from_float(0.3) != Fraction(3, 10).
 
-    """
-<span class="highlight">    head, tail = path.split(name)
-</span>    if not tail:
-        head, tail = path.split(head)
-    if head and tail and not path.exists(head):
+        """
+<span class="highlight">        if isinstance(f, numbers.Integral):
+</span>            return cls(f)
+        elif not isinstance(f, float):
+            raise TypeError("%s.from_float() only takes floats, not %r (%s)" %
 </code>
 			</div>
 		
 			<div class="frame" style="padding-left: 50px">
 				<p>
-					<b>split</b>
-					(/usr/lib/python3.6/posixpath.py:106)
+					<b>__instancecheck__</b>
+					(/usr/lib/python3.6/abc.py:182)
 				</p>
-				<code>    """Split a pathname.  Returns tuple "(head, tail)" where "tail" is
-    everything after the final slash.  Either part may be empty."""
-    p = os.fspath(p)
-<span class="highlight">    sep = _get_sep(p)
-</span>    i = p.rfind(sep) + 1
-    head, tail = p[:i], p[i:]
-    if head and head != sep*len(head):
+				<code>        """Override for isinstance(instance, cls)."""
+        # Inline the cache checking
+        subclass = instance.__class__
+<span class="highlight">        if subclass in cls._abc_cache:
+</span>            return True
+        subtype = type(instance)
+        if subtype is subclass:
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 50px">
+				<p>
+					<b>__instancecheck__</b>
+					(/usr/lib/python3.6/abc.py:191)
+				</p>
+				<code>                subclass in cls._abc_negative_cache):
+                return False
+            # Fall back to the subclass check.
+<span class="highlight">            return cls.__subclasscheck__(subclass)
+</span>        return any(cls.__subclasscheck__(c) for c in {subclass, subtype})
+
+    def __subclasscheck__(cls, subclass):
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 100px">
+				<p>
+					<b>__subclasscheck__</b>
+					(/usr/lib/python3.6/abc.py:197)
+				</p>
+				<code>    def __subclasscheck__(cls, subclass):
+        """Override for issubclass(subclass, cls)."""
+        # Check cache
+<span class="highlight">        if subclass in cls._abc_cache:
+</span>            return True
+        # Check negative cache; may have to invalidate
+        if cls._abc_negative_cache_version < ABCMeta._abc_invalidation_counter:
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 100px">
+				<p>
+					<b>__subclasscheck__</b>
+					(/usr/lib/python3.6/abc.py:202)
+				</p>
+				<code>        # Check negative cache; may have to invalidate
+        if cls._abc_negative_cache_version < ABCMeta._abc_invalidation_counter:
+            # Invalidate the negative cache
+<span class="highlight">            cls._abc_negative_cache = WeakSet()
+</span>            cls._abc_negative_cache_version = ABCMeta._abc_invalidation_counter
+        elif subclass in cls._abc_negative_cache:
+            return False
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 100px">
+				<p>
+					<b>__subclasscheck__</b>
+					(/usr/lib/python3.6/abc.py:220)
+				</p>
+				<code>            cls._abc_cache.add(subclass)
+            return True
+        # Check if it's a subclass of a registered class (recursive)
+<span class="highlight">        for rcls in cls._abc_registry:
+</span>            if issubclass(subclass, rcls):
+                cls._abc_cache.add(subclass)
+                return True
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 150px">
+				<p>
+					<b>__iter__</b>
+					(/usr/lib/python3.6/_weakrefset.py:59)
+				</p>
+				<code>            discard(l.pop())
+
+    def __iter__(self):
+<span class="highlight">        with _IterationGuard(self):
+</span>            for itemref in self.data:
+                item = itemref()
+                if item is not None:
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 150px">
+				<p>
+					<b>__iter__</b>
+					(/usr/lib/python3.6/_weakrefset.py:59)
+				</p>
+				<code>            discard(l.pop())
+
+    def __iter__(self):
+<span class="highlight">        with _IterationGuard(self):
+</span>            for itemref in self.data:
+                item = itemref()
+                if item is not None:
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 100px">
+				<p>
+					<b>__subclasscheck__</b>
+					(/usr/lib/python3.6/abc.py:220)
+				</p>
+				<code>            cls._abc_cache.add(subclass)
+            return True
+        # Check if it's a subclass of a registered class (recursive)
+<span class="highlight">        for rcls in cls._abc_registry:
+</span>            if issubclass(subclass, rcls):
+                cls._abc_cache.add(subclass)
+                return True
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 150px">
+				<p>
+					<b>__iter__</b>
+					(/usr/lib/python3.6/_weakrefset.py:60)
+				</p>
+				<code>
+    def __iter__(self):
+        with _IterationGuard(self):
+<span class="highlight">            for itemref in self.data:
+</span>                item = itemref()
+                if item is not None:
+                    # Caveat: the iterator will keep a strong reference to
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 200px">
+				<p>
+					<b>__exit__</b>
+					(/usr/lib/python3.6/_weakrefset.py:32)
+				</p>
+				<code>            s = w._iterating
+            s.remove(self)
+            if not s:
+<span class="highlight">                w._commit_removals()
+</span>
+
+class WeakSet:
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 100px">
+				<p>
+					<b>__subclasscheck__</b>
+					(/usr/lib/python3.6/abc.py:220)
+				</p>
+				<code>            cls._abc_cache.add(subclass)
+            return True
+        # Check if it's a subclass of a registered class (recursive)
+<span class="highlight">        for rcls in cls._abc_registry:
+</span>            if issubclass(subclass, rcls):
+                cls._abc_cache.add(subclass)
+                return True
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 100px">
+				<p>
+					<b>__subclasscheck__</b>
+					(/usr/lib/python3.6/abc.py:230)
+				</p>
+				<code>                cls._abc_cache.add(subclass)
+                return True
+        # No dice; update negative cache
+<span class="highlight">        cls._abc_negative_cache.add(subclass)
+</span>        return False
+
+
 </code>
 			</div>
 		
 			<div class="frame" style="padding-left: 0px">
 				<p>
-					<b>makedirs</b>
-					(/usr/lib/python3.6/os.py:208)
+					<b>from_float</b>
+					(/usr/lib/python3.6/fractions.py:204)
 				</p>
-				<code>    head, tail = path.split(name)
-    if not tail:
-        head, tail = path.split(head)
-<span class="highlight">    if head and tail and not path.exists(head):
-</span>        try:
-            makedirs(head, mode, exist_ok)
-        except FileExistsError:
-</code>
-			</div>
-		
-			<div class="frame" style="padding-left: 50px">
-				<p>
-					<b>exists</b>
-					(/usr/lib/python3.6/genericpath.py:16)
-				</p>
-				<code>
-# Does a path exist?
-# This is false for dangling symbolic links on systems that support them.
-<span class="highlight">def exists(path):
-</span>    """Test whether a path exists.  Returns False for broken symbolic links"""
-    try:
-        os.stat(path)
+				<code>            return cls(f)
+        elif not isinstance(f, float):
+            raise TypeError("%s.from_float() only takes floats, not %r (%s)" %
+<span class="highlight">                            (cls.__name__, f, type(f).__name__))
+</span>        return cls(*f.as_integer_ratio())
+
+    @classmethod
 </code>
 			</div>
 		
