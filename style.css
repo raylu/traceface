@@ -13,13 +13,17 @@ body {
 
 div.frame {
 	margin: 10px 25px;
+	border-top: 1px solid #333;
+}
+div.frame p {
+	margin-top: 10px;
 }
 
 code {
 	display: block;
 	white-space: pre;
-	margin-left: 25px;
 	tab-size: 4;
+	background-color: #222;
 }
 code span.highlight {
 	background-color: #442;

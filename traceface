@@ -41,15 +41,18 @@ class Tracer(bdb.Bdb):
 			lineno = code.co_firstlineno
 		else:
 			lineno = frame.f_lineno
-		self.trace.append(Frame(code.co_filename, code.co_name, lineno))
+		depth = self.get_stack(frame, None)[1] - 1
+		frame_obj = Frame(code.co_filename, code.co_name, lineno, depth)
+		self.trace.append(frame_obj)
 
 class Frame:
 	files = {}
 
-	def __init__(self, filepath, func_name, line_no):
+	def __init__(self, filepath, func_name, line_no, depth):
 		self.filepath = filepath
 		self.func_name = func_name
 		self.line_no = line_no
+		self.depth = depth
 
 		self.rendered = None
 
@@ -65,7 +68,8 @@ class Frame:
 		self.rendered = ''.join(context)
 
 	def __repr__(self):
-		return '%s(%r, %r, %r)' % (self.__class__.__name__, self.filepath, self.func_name, self.line_no)
+		return '%s(%r, %r, %r, %r)' % (self.__class__.__name__,
+				self.filepath, self.func_name, self.line_no, self.depth)
 
 if __name__ == '__main__':
 	main()

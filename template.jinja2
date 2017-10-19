@@ -6,9 +6,11 @@
 	</head>
 	<body>
 		{% for frame in trace %}
-			<div class="frame">
-				<b>{{frame.func_name}}</b>
-				({{ frame.filepath }}:{{ frame.line_no}})
+			<div class="frame" style="padding-left: {{ 50 * frame.depth }}px">
+				<p>
+					<b>{{frame.func_name}}</b>
+					({{ frame.filepath }}:{{ frame.line_no}})
+				</p>
 				<code>{{ frame.rendered }}</code>
 			</div>
 		{% endfor %}
