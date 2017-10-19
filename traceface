@@ -55,7 +55,10 @@ class Frame:
 			with open(self.filepath, 'r') as f:
 				lines = self.files[self.filepath] = f.readlines()
 		start = max(self.line_no - 4, 0)
-		self.rendered = ''.join(lines[start:self.line_no + 3])
+		context = copy.copy(lines[start:self.line_no + 3])
+		index = self.line_no - start - 1
+		context[index] = '<span class="highlight">%s</span>' % context[index]
+		self.rendered = ''.join(context)
 
 	def __repr__(self):
 		return '%s(%r, %r, %r)' % (self.__class__.__name__, self.filepath, self.func_name, self.line_no)

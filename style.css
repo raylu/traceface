@@ -21,3 +21,6 @@ code {
 	margin-left: 25px;
 	tab-size: 4;
 }
+code span.highlight {
+	background-color: #442;
+}
