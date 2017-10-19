@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+
+import bdb
+import linecache
+
+class Tracer(bdb.Bdb):
+	def user_call(self, frame, argument_list):
+		caller = frame.f_back
+		caller_code = caller.f_code
+		print(caller_code.co_filename, caller_code.co_name, caller.f_lineno)
+		code = frame.f_code
+		print(' '*3, code.co_filename, code.co_name, frame.f_lineno, argument_list)
+
+		print(' '*3, linecache.getline(caller_code.co_filename, caller.f_lineno))
+
+import test
+
+Tracer().runcall(test.hello)
