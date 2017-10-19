@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
-import bdb
 import copy
 import importlib
+import sys
 import traceback
 
 import jinja2
@@ -36,17 +36,28 @@ def main():
 		stream.enable_buffering()
 		stream.dump(f)
 
-class Tracer(bdb.Bdb):
+class Tracer:
 	def __init__(self):
 		self.trace = []
-		self.seen_first_frame = False
+		self.bottom_frame = None
 		self.last_frame = None
-		super().__init__()
 
-	def user_call(self, frame, argument_list):
-		if not self.seen_first_frame: # skip the first frame
-			self.seen_first_frame = True
-		else:
+	def run(self, code, run_globals=None):
+		sys.settrace(self.trace_dispatch)
+		try:
+			exec(code, run_globals)
+		finally:
+			sys.settrace(None)
+
+	def trace_dispatch(self, frame, event, arg):
+		if event == 'call':
+			self.handle_call(frame)
+		return self.trace_dispatch
+
+	def handle_call(self, frame):
+		if self.bottom_frame is None:
+			self.bottom_frame = frame
+		elif frame.f_back is not self.bottom_frame: # skip the first 2 frames
 			self._add_trace(frame.f_back)
 			self.last_frame = frame
 
@@ -60,7 +71,10 @@ class Tracer(bdb.Bdb):
 			lineno = code.co_firstlineno
 		else:
 			lineno = frame.f_lineno
-		depth = self.get_stack(frame, None)[1] - 2
+		depth = -1
+		while frame is not None and frame is not self.bottom_frame:
+			frame = frame.f_back
+			depth += 1
 		frame_obj = Frame(code.co_filename, code.co_name, lineno, depth)
 		self.trace.append(frame_obj)
 
@@ -76,6 +90,8 @@ class Frame:
 		self.rendered = None
 
 	def render(self):
+		if self.filepath[0] == '<':
+			return
 		lines = self.files.get(self.filepath)
 		if lines is None:
 			with open(self.filepath, 'r') as f:

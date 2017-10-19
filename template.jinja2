@@ -11,7 +11,7 @@
 					<b>{{frame.func_name}}</b>
 					({{ frame.filepath }}:{{ frame.line_no}})
 				</p>
-				<code>{{ frame.rendered }}</code>
+				<code>{{ frame.rendered or '' }}</code>
 			</div>
 		{% endfor %}
 	</body>
