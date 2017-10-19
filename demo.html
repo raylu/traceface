@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<head>
+		<title>traceface</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		
+			<div class="frame" style="padding-left: 0px">
+				<p>
+					<b>makedirs</b>
+					(/usr/lib/python3.6/os.py:205)
+				</p>
+				<code>    raised.  This is recursive.
+
+    """
+<span class="highlight">    head, tail = path.split(name)
+</span>    if not tail:
+        head, tail = path.split(head)
+    if head and tail and not path.exists(head):
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 50px">
+				<p>
+					<b>split</b>
+					(/usr/lib/python3.6/posixpath.py:106)
+				</p>
+				<code>    """Split a pathname.  Returns tuple "(head, tail)" where "tail" is
+    everything after the final slash.  Either part may be empty."""
+    p = os.fspath(p)
+<span class="highlight">    sep = _get_sep(p)
+</span>    i = p.rfind(sep) + 1
+    head, tail = p[:i], p[i:]
+    if head and head != sep*len(head):
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 0px">
+				<p>
+					<b>makedirs</b>
+					(/usr/lib/python3.6/os.py:208)
+				</p>
+				<code>    head, tail = path.split(name)
+    if not tail:
+        head, tail = path.split(head)
+<span class="highlight">    if head and tail and not path.exists(head):
+</span>        try:
+            makedirs(head, mode, exist_ok)
+        except FileExistsError:
+</code>
+			</div>
+		
+			<div class="frame" style="padding-left: 50px">
+				<p>
+					<b>exists</b>
+					(/usr/lib/python3.6/genericpath.py:16)
+				</p>
+				<code>
+# Does a path exist?
+# This is false for dangling symbolic links on systems that support them.
+<span class="highlight">def exists(path):
+</span>    """Test whether a path exists.  Returns False for broken symbolic links"""
+    try:
+        os.stat(path)
+</code>
+			</div>
+		
+	</body>
+</html>
