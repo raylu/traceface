@@ -9,3 +9,6 @@ def shout(s):
 
 def say(s):
 	print(s)
+
+if __name__ == '__main__':
+	hello()

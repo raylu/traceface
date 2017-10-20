@@ -45,6 +45,8 @@ class Tracer:
 	def run(self, code, run_globals=None):
 		sys.settrace(self.trace_dispatch)
 		try:
+			exec(compile(open(code, "rb").read(), code, 'exec'), globals())
+		except FileNotFoundError:
 			exec(code, run_globals)
 		finally:
 			sys.settrace(None)
