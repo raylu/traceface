@@ -11,7 +11,17 @@
 					<b>{{frame.func_name}}</b>
 					({{ frame.filepath }}:{{ frame.line_no}})
 				</p>
-				<code>{{ frame.rendered or '' }}</code>
+				{% if frame.context_lines %}
+					<code>
+						{%- for line in frame.context_lines %}
+							{% if loop.index0 == frame.call_index -%}
+								<span class="highlight">{{ line }}</span>
+							{% else -%}
+								{{ line }}
+							{% endif %}
+						{% endfor -%}
+					</code>
+				{% endif %}
 				<table class="local-vars">
 					<tr>
 						<th>Local variable</th>

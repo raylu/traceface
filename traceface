@@ -26,10 +26,10 @@ def main():
 
 	trace = tracer.trace
 	for frame in trace:
-		frame.render()
+		frame.context()
 
 	with open('template.jinja2', 'r') as f:
-		template = jinja2.Template(f.read())
+		template = jinja2.Template(f.read(), trim_blocks=True, lstrip_blocks=True)
 	with open('trace.html', 'w') as f:
 		stream = template.stream({'trace': trace})
 		stream.enable_buffering()
@@ -88,24 +88,27 @@ class Frame:
 		self.depth = depth
 		self.local_vars = {k: repr(v) for k, v in local_vars.items()}
 
-		self.rendered = None
+		self.context_lines = None
+		self.call_index = None
 
-	def render(self):
-		if self.filepath[0] == '<':
+	def context(self):
+		if self.filepath[0] == '<': # <module>, <string>
 			return
 		lines = self.files.get(self.filepath)
 		if lines is None:
 			with open(self.filepath, 'r') as f:
-				lines = self.files[self.filepath] = f.readlines()
+				lines = f.readlines()
+				for i, line in enumerate(lines):
+					lines[i] = line.rstrip('\r\n')
+				self.files[self.filepath] = lines
+		# get 3 lines of context
 		start = max(self.line_no - 4, 0)
-		context = copy.copy(lines[start:self.line_no + 3])
-		index = self.line_no - start - 1
-		context[index] = '<span class="highlight">%s</span>' % context[index]
-		self.rendered = ''.join(context)
+		self.context_lines = copy.copy(lines[start:self.line_no + 3])
+		self.call_index = self.line_no - start - 1
 
 	def __repr__(self):
 		return '%s(%r, %r, %r, %r)' % (self.__class__.__name__,
-				self.filepath, self.func_name, self.line_no, self.depth)
+				self.filepath, self.func_name, self.line_no, self.depth, self.local_vars)
 
 if __name__ == '__main__':
 	main()
