@@ -94,7 +94,7 @@ class Frame:
 		self.func_name = func_name
 		self.line_no = line_no
 		self.depth = depth
-		self.local_vars = local_vars
+		self.local_vars = {k: repr(v) for k, v in local_vars.items()}
 
 		self.rendered = None
 
