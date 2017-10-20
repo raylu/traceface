@@ -5,7 +5,10 @@ def hello():
 		shout('hello')
 
 def shout(s):
-	say(s.upper())
+	try:
+		say(s.upper())
+	except:
+		raise Exception('whoops')
 
 def say(s):
-	print(s)
+	raise Exception(s)

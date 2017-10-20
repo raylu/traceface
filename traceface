@@ -50,9 +50,9 @@ class Tracer:
 	def trace_dispatch(self, frame, event, arg):
 		if event == 'call':
 			self.handle_call(frame)
+			return self.trace_dispatch
 		elif event == 'exception':
 			self.handle_exception(frame)
-		return self.trace_dispatch
 
 	def handle_call(self, frame):
 		if self.bottom_frame is None:
@@ -74,7 +74,8 @@ class Tracer:
 			frame = frame.f_back
 			depth += 1
 		frame_obj = Frame(code.co_filename, code.co_name, line_no, first_line_no, depth, local_vars)
-		self.trace.append(frame_obj)
+		if frame_obj not in self.trace: # don't add frames for exceptions bubbling up
+			self.trace.append(frame_obj)
 
 class Frame:
 	files = {}
@@ -115,6 +116,13 @@ class Frame:
 	def __repr__(self):
 		return '%s(%r, %r, %r, %r, %r, %r)' % (self.__class__.__name__, self.filepath, self.func_name,
 				self.line_no, self.first_line_no, self.depth, self.local_vars)
+
+	def __eq__(self, other):
+		if not isinstance(other, Frame):
+			return False
+		our_key = (self.filepath, self.func_name, self.line_no)
+		other_key = (other.filepath, other.func_name, other.line_no)
+		return our_key == other_key
 
 if __name__ == '__main__':
 	main()
