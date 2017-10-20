@@ -64,32 +64,32 @@ class Tracer:
 		if frame is not self.bottom_frame:
 			self._add_trace(frame)
 
-	def _add_trace(self, frame, last=False):
+	def _add_trace(self, frame):
 		local_vars = frame.f_locals
 		code = frame.f_code
-		if last:
-			lineno = code.co_firstlineno
-		else:
-			lineno = frame.f_lineno
+		line_no = frame.f_lineno
+		first_line_no = code.co_firstlineno
 		depth = -1
 		while frame is not None and frame is not self.bottom_frame:
 			frame = frame.f_back
 			depth += 1
-		frame_obj = Frame(code.co_filename, code.co_name, lineno, depth, local_vars)
+		frame_obj = Frame(code.co_filename, code.co_name, line_no, first_line_no, depth, local_vars)
 		self.trace.append(frame_obj)
 
 class Frame:
 	files = {}
 
-	def __init__(self, filepath, func_name, line_no, depth, local_vars):
+	def __init__(self, filepath, func_name, line_no, first_line_no, depth, local_vars):
 		self.filepath = filepath
 		self.func_name = func_name
 		self.line_no = line_no
+		self.first_line_no = first_line_no
 		self.depth = depth
 		self.local_vars = {k: repr(v) for k, v in local_vars.items()}
 
 		self.context_lines = None
 		self.call_index = None
+		self.def_index = None
 
 	def context(self):
 		if self.filepath[0] == '<': # <module>, <string>
@@ -105,10 +105,12 @@ class Frame:
 		start = max(self.line_no - 4, 0)
 		self.context_lines = copy.copy(lines[start:self.line_no + 3])
 		self.call_index = self.line_no - start - 1
+		if self.first_line_no >= start:
+			self.def_index = self.first_line_no - start - 1
 
 	def __repr__(self):
-		return '%s(%r, %r, %r, %r)' % (self.__class__.__name__,
-				self.filepath, self.func_name, self.line_no, self.depth, self.local_vars)
+		return '%s(%r, %r, %r, %r, %r, %r)' % (self.__class__.__name__, self.filepath, self.func_name,
+				self.line_no, self.first_line_no, self.depth, self.local_vars)
 
 if __name__ == '__main__':
 	main()

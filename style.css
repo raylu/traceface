@@ -26,7 +26,11 @@ code {
 	background-color: #222;
 }
 
-code span.highlight {
+code span.def {
+	color: #aae;
+}
+
+code span.call {
 	background-color: #442;
 }
 

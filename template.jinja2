@@ -14,8 +14,10 @@
 				{% if frame.context_lines %}
 					<code>
 						{%- for line in frame.context_lines %}
-							{% if loop.index0 == frame.call_index -%}
-								<span class="highlight">{{ line }}</span>
+							{% if loop.index0 == frame.def_index -%}
+								<span class="def">{{ line }}</span>
+							{% elif loop.index0 == frame.call_index -%}
+								<span class="call">{{ line }}</span>
 							{% else -%}
 								{{ line }}
 							{% endif %}
