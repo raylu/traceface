@@ -2,7 +2,6 @@
 
 import argparse
 import copy
-import importlib
 import sys
 import traceback
 
@@ -16,8 +15,8 @@ def main():
 
 	run_globals = None
 	if args.module is not None:
-		module = importlib.import_module(args.module)
-		run_globals = {args.module: module}
+		module = __import__(args.module)
+		run_globals = {module.__name__: module}
 	tracer = Tracer()
 	try:
 		tracer.run(args.code, run_globals)
