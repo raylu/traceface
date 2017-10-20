@@ -5,216 +5,459 @@
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
-		
 			<div class="frame" style="padding-left: 0px">
 				<p>
 					<b>from_float</b>
 					(/usr/lib/python3.6/fractions.py:200)
 				</p>
-				<code>        Beware that Fraction.from_float(0.3) != Fraction(3, 10).
+					<code><span class="def">    @classmethod</span>
+        Beware that Fraction.from_float(0.3) != Fraction(3, 10).
 
         """
-<span class="highlight">        if isinstance(f, numbers.Integral):
-</span>            return cls(f)
+<span class="call">        if isinstance(f, numbers.Integral):</span>
+            return cls(f)
         elif not isinstance(f, float):
             raise TypeError("%s.from_float() only takes floats, not %r (%s)" %
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>f</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'fractions.Fraction'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 50px">
 				<p>
 					<b>__instancecheck__</b>
 					(/usr/lib/python3.6/abc.py:182)
 				</p>
-				<code>        """Override for isinstance(instance, cls)."""
+					<code><span class="def">    def __instancecheck__(cls, instance):</span>
+        """Override for isinstance(instance, cls)."""
         # Inline the cache checking
         subclass = instance.__class__
-<span class="highlight">        if subclass in cls._abc_cache:
-</span>            return True
+<span class="call">        if subclass in cls._abc_cache:</span>
+            return True
         subtype = type(instance)
         if subtype is subclass:
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>instance</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'numbers.Integral'></td>
+						</tr>
+						<tr>
+							<td>subclass</td>
+							<td><class 'NoneType'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 50px">
 				<p>
 					<b>__instancecheck__</b>
 					(/usr/lib/python3.6/abc.py:191)
 				</p>
-				<code>                subclass in cls._abc_negative_cache):
+					<code><span class="def">    def __instancecheck__(cls, instance):</span>
+                subclass in cls._abc_negative_cache):
                 return False
             # Fall back to the subclass check.
-<span class="highlight">            return cls.__subclasscheck__(subclass)
-</span>        return any(cls.__subclasscheck__(c) for c in {subclass, subtype})
+<span class="call">            return cls.__subclasscheck__(subclass)</span>
+        return any(cls.__subclasscheck__(c) for c in {subclass, subtype})
 
     def __subclasscheck__(cls, subclass):
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>instance</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'numbers.Integral'></td>
+						</tr>
+						<tr>
+							<td>subclass</td>
+							<td><class 'NoneType'></td>
+						</tr>
+						<tr>
+							<td>subtype</td>
+							<td><class 'NoneType'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 100px">
 				<p>
 					<b>__subclasscheck__</b>
 					(/usr/lib/python3.6/abc.py:197)
 				</p>
-				<code>    def __subclasscheck__(cls, subclass):
+					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
         """Override for issubclass(subclass, cls)."""
         # Check cache
-<span class="highlight">        if subclass in cls._abc_cache:
-</span>            return True
+<span class="call">        if subclass in cls._abc_cache:</span>
+            return True
         # Check negative cache; may have to invalidate
         if cls._abc_negative_cache_version < ABCMeta._abc_invalidation_counter:
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>subclass</td>
+							<td><class 'NoneType'></td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'numbers.Integral'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 100px">
 				<p>
 					<b>__subclasscheck__</b>
 					(/usr/lib/python3.6/abc.py:202)
 				</p>
-				<code>        # Check negative cache; may have to invalidate
+					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
+        # Check negative cache; may have to invalidate
         if cls._abc_negative_cache_version < ABCMeta._abc_invalidation_counter:
             # Invalidate the negative cache
-<span class="highlight">            cls._abc_negative_cache = WeakSet()
-</span>            cls._abc_negative_cache_version = ABCMeta._abc_invalidation_counter
+<span class="call">            cls._abc_negative_cache = WeakSet()</span>
+            cls._abc_negative_cache_version = ABCMeta._abc_invalidation_counter
         elif subclass in cls._abc_negative_cache:
             return False
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>subclass</td>
+							<td><class 'NoneType'></td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'numbers.Integral'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 100px">
 				<p>
 					<b>__subclasscheck__</b>
 					(/usr/lib/python3.6/abc.py:220)
 				</p>
-				<code>            cls._abc_cache.add(subclass)
+					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
+            cls._abc_cache.add(subclass)
             return True
         # Check if it's a subclass of a registered class (recursive)
-<span class="highlight">        for rcls in cls._abc_registry:
-</span>            if issubclass(subclass, rcls):
+<span class="call">        for rcls in cls._abc_registry:</span>
+            if issubclass(subclass, rcls):
                 cls._abc_cache.add(subclass)
                 return True
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>subclass</td>
+							<td><class 'NoneType'></td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'numbers.Integral'></td>
+						</tr>
+						<tr>
+							<td>ok</td>
+							<td>NotImplemented</td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 150px">
 				<p>
 					<b>__iter__</b>
 					(/usr/lib/python3.6/_weakrefset.py:59)
 				</p>
-				<code>            discard(l.pop())
+					<code>            discard(l.pop())
 
-    def __iter__(self):
-<span class="highlight">        with _IterationGuard(self):
-</span>            for itemref in self.data:
+<span class="def">    def __iter__(self):</span>
+<span class="call">        with _IterationGuard(self):</span>
+            for itemref in self.data:
                 item = itemref()
                 if item is not None:
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>self</td>
+							<td><_weakrefset.WeakSet object at 0x7fd03f574550></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 150px">
 				<p>
 					<b>__iter__</b>
 					(/usr/lib/python3.6/_weakrefset.py:59)
 				</p>
-				<code>            discard(l.pop())
+					<code>            discard(l.pop())
 
-    def __iter__(self):
-<span class="highlight">        with _IterationGuard(self):
-</span>            for itemref in self.data:
+<span class="def">    def __iter__(self):</span>
+<span class="call">        with _IterationGuard(self):</span>
+            for itemref in self.data:
                 item = itemref()
                 if item is not None:
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>self</td>
+							<td><_weakrefset.WeakSet object at 0x7fd03f574550></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 100px">
 				<p>
 					<b>__subclasscheck__</b>
 					(/usr/lib/python3.6/abc.py:220)
 				</p>
-				<code>            cls._abc_cache.add(subclass)
+					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
+            cls._abc_cache.add(subclass)
             return True
         # Check if it's a subclass of a registered class (recursive)
-<span class="highlight">        for rcls in cls._abc_registry:
-</span>            if issubclass(subclass, rcls):
+<span class="call">        for rcls in cls._abc_registry:</span>
+            if issubclass(subclass, rcls):
                 cls._abc_cache.add(subclass)
                 return True
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>subclass</td>
+							<td><class 'NoneType'></td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'numbers.Integral'></td>
+						</tr>
+						<tr>
+							<td>ok</td>
+							<td>NotImplemented</td>
+						</tr>
+						<tr>
+							<td>rcls</td>
+							<td><class 'int'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 150px">
 				<p>
 					<b>__iter__</b>
 					(/usr/lib/python3.6/_weakrefset.py:60)
 				</p>
-				<code>
-    def __iter__(self):
+					<code>
+<span class="def">    def __iter__(self):</span>
         with _IterationGuard(self):
-<span class="highlight">            for itemref in self.data:
-</span>                item = itemref()
+<span class="call">            for itemref in self.data:</span>
+                item = itemref()
                 if item is not None:
                     # Caveat: the iterator will keep a strong reference to
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>self</td>
+							<td><_weakrefset.WeakSet object at 0x7fd03f574550></td>
+						</tr>
+						<tr>
+							<td>itemref</td>
+							<td><weakref at 0x7fd03f575778; to 'type' at 0x9c1820 (int)></td>
+						</tr>
+						<tr>
+							<td>item</td>
+							<td><class 'int'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 200px">
 				<p>
 					<b>__exit__</b>
 					(/usr/lib/python3.6/_weakrefset.py:32)
 				</p>
-				<code>            s = w._iterating
+					<code><span class="def">    def __exit__(self, e, t, b):</span>
+            s = w._iterating
             s.remove(self)
             if not s:
-<span class="highlight">                w._commit_removals()
-</span>
+<span class="call">                w._commit_removals()</span>
+
 
 class WeakSet:
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>b</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>t</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>e</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>self</td>
+							<td><_weakrefset._IterationGuard object at 0x7fd03dcb4358></td>
+						</tr>
+						<tr>
+							<td>w</td>
+							<td><_weakrefset.WeakSet object at 0x7fd03f574550></td>
+						</tr>
+						<tr>
+							<td>s</td>
+							<td>set()</td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 100px">
 				<p>
 					<b>__subclasscheck__</b>
 					(/usr/lib/python3.6/abc.py:220)
 				</p>
-				<code>            cls._abc_cache.add(subclass)
+					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
+            cls._abc_cache.add(subclass)
             return True
         # Check if it's a subclass of a registered class (recursive)
-<span class="highlight">        for rcls in cls._abc_registry:
-</span>            if issubclass(subclass, rcls):
+<span class="call">        for rcls in cls._abc_registry:</span>
+            if issubclass(subclass, rcls):
                 cls._abc_cache.add(subclass)
                 return True
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>subclass</td>
+							<td><class 'NoneType'></td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'numbers.Integral'></td>
+						</tr>
+						<tr>
+							<td>ok</td>
+							<td>NotImplemented</td>
+						</tr>
+						<tr>
+							<td>rcls</td>
+							<td><class 'int'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 100px">
 				<p>
 					<b>__subclasscheck__</b>
 					(/usr/lib/python3.6/abc.py:230)
 				</p>
-				<code>                cls._abc_cache.add(subclass)
+					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
+                cls._abc_cache.add(subclass)
                 return True
         # No dice; update negative cache
-<span class="highlight">        cls._abc_negative_cache.add(subclass)
-</span>        return False
+<span class="call">        cls._abc_negative_cache.add(subclass)</span>
+        return False
 
 
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>subclass</td>
+							<td><class 'NoneType'></td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'numbers.Integral'></td>
+						</tr>
+						<tr>
+							<td>ok</td>
+							<td>NotImplemented</td>
+						</tr>
+						<tr>
+							<td>rcls</td>
+							<td><class 'int'></td>
+						</tr>
+				</table>
 			</div>
-		
 			<div class="frame" style="padding-left: 0px">
 				<p>
 					<b>from_float</b>
 					(/usr/lib/python3.6/fractions.py:204)
 				</p>
-				<code>            return cls(f)
+					<code><span class="def">    @classmethod</span>
+            return cls(f)
         elif not isinstance(f, float):
             raise TypeError("%s.from_float() only takes floats, not %r (%s)" %
-<span class="highlight">                            (cls.__name__, f, type(f).__name__))
-</span>        return cls(*f.as_integer_ratio())
+<span class="call">                            (cls.__name__, f, type(f).__name__))</span>
+        return cls(*f.as_integer_ratio())
 
     @classmethod
 </code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>f</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>cls</td>
+							<td><class 'fractions.Fraction'></td>
+						</tr>
+				</table>
 			</div>
-		
 	</body>
 </html>
