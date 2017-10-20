@@ -7,17 +7,16 @@
 	<body>
 			<div class="frame" style="padding-left: 0px">
 				<p>
-					<b>from_float</b>
-					(/usr/lib/python3.6/fractions.py:200)
+					<b>match</b>
+					(/usr/lib/python3.6/re.py:172)
 				</p>
-					<code><span class="def">    @classmethod</span>
-        Beware that Fraction.from_float(0.3) != Fraction(3, 10).
+					<code><span class="def">def match(pattern, string, flags=0):</span>
+    &#34;&#34;&#34;Try to apply the pattern at the start of the string, returning
+    a match object, or None if no match was found.&#34;&#34;&#34;
+<span class="call">    return _compile(pattern, flags).match(string)</span>
 
-        """
-<span class="call">        if isinstance(f, numbers.Integral):</span>
-            return cls(f)
-        elif not isinstance(f, float):
-            raise TypeError("%s.from_float() only takes floats, not %r (%s)" %
+def fullmatch(pattern, string, flags=0):
+    &#34;&#34;&#34;Try to apply the pattern to all of the string, returning
 </code>
 				<table class="local-vars">
 					<tr>
@@ -25,28 +24,31 @@
 						<th>Value</th>
 					</tr>
 						<tr>
-							<td>f</td>
-							<td>None</td>
+							<td>flags</td>
+							<td>0</td>
 						</tr>
 						<tr>
-							<td>cls</td>
-							<td><class 'fractions.Fraction'></td>
+							<td>string</td>
+							<td>&#39;a&#39;</td>
+						</tr>
+						<tr>
+							<td>pattern</td>
+							<td>&#39;[&#39;</td>
 						</tr>
 				</table>
 			</div>
 			<div class="frame" style="padding-left: 50px">
 				<p>
-					<b>__instancecheck__</b>
-					(/usr/lib/python3.6/abc.py:182)
+					<b>_compile</b>
+					(/usr/lib/python3.6/re.py:289)
 				</p>
-					<code><span class="def">    def __instancecheck__(cls, instance):</span>
-        """Override for isinstance(instance, cls)."""
-        # Inline the cache checking
-        subclass = instance.__class__
-<span class="call">        if subclass in cls._abc_cache:</span>
-            return True
-        subtype = type(instance)
-        if subtype is subclass:
+					<code><span class="def">def _compile(pattern, flags):</span>
+    # internal: compile pattern
+    try:
+<span class="call">        p, loc = _cache[type(pattern), pattern, flags]</span>
+        if loc is None or loc == _locale.setlocale(_locale.LC_CTYPE):
+            return p
+    except KeyError:
 </code>
 				<table class="local-vars">
 					<tr>
@@ -54,32 +56,28 @@
 						<th>Value</th>
 					</tr>
 						<tr>
-							<td>instance</td>
-							<td>None</td>
+							<td>flags</td>
+							<td>0</td>
 						</tr>
 						<tr>
-							<td>cls</td>
-							<td><class 'numbers.Integral'></td>
-						</tr>
-						<tr>
-							<td>subclass</td>
-							<td><class 'NoneType'></td>
+							<td>pattern</td>
+							<td>&#39;[&#39;</td>
 						</tr>
 				</table>
 			</div>
 			<div class="frame" style="padding-left: 50px">
 				<p>
-					<b>__instancecheck__</b>
-					(/usr/lib/python3.6/abc.py:191)
+					<b>_compile</b>
+					(/usr/lib/python3.6/re.py:299)
 				</p>
-					<code><span class="def">    def __instancecheck__(cls, instance):</span>
-                subclass in cls._abc_negative_cache):
-                return False
-            # Fall back to the subclass check.
-<span class="call">            return cls.__subclasscheck__(subclass)</span>
-        return any(cls.__subclasscheck__(c) for c in {subclass, subtype})
-
-    def __subclasscheck__(cls, subclass):
+					<code><span class="def">def _compile(pattern, flags):</span>
+            raise ValueError(
+                &#34;cannot process flags argument with a compiled pattern&#34;)
+        return pattern
+<span class="call">    if not sre_compile.isstring(pattern):</span>
+        raise TypeError(&#34;first argument must be string or compiled pattern&#34;)
+    p = sre_compile.compile(pattern, flags)
+    if not (flags &amp; DEBUG):
 </code>
 				<table class="local-vars">
 					<tr>
@@ -87,243 +85,150 @@
 						<th>Value</th>
 					</tr>
 						<tr>
-							<td>instance</td>
+							<td>flags</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>pattern</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 50px">
+				<p>
+					<b>_compile</b>
+					(/usr/lib/python3.6/re.py:301)
+				</p>
+					<code><span class="def">def _compile(pattern, flags):</span>
+        return pattern
+    if not sre_compile.isstring(pattern):
+        raise TypeError(&#34;first argument must be string or compiled pattern&#34;)
+<span class="call">    p = sre_compile.compile(pattern, flags)</span>
+    if not (flags &amp; DEBUG):
+        if len(_cache) &gt;= _MAXCACHE:
+            _cache.clear()
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>flags</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>pattern</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 100px">
+				<p>
+					<b>compile</b>
+					(/usr/lib/python3.6/sre_compile.py:560)
+				</p>
+					<code><span class="def">def compile(p, flags=0):</span>
+    # internal: convert pattern list to internal format
+
+<span class="call">    if isstring(p):</span>
+        pattern = p
+        p = sre_parse.parse(p, flags)
+    else:
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>flags</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>p</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 100px">
+				<p>
+					<b>compile</b>
+					(/usr/lib/python3.6/sre_compile.py:562)
+				</p>
+					<code><span class="def">def compile(p, flags=0):</span>
+
+    if isstring(p):
+        pattern = p
+<span class="call">        p = sre_parse.parse(p, flags)</span>
+    else:
+        pattern = None
+
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>flags</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>p</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+						<tr>
+							<td>pattern</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 150px">
+				<p>
+					<b>parse</b>
+					(/usr/lib/python3.6/sre_parse.py:847)
+				</p>
+					<code><span class="def">def parse(str, flags=0, pattern=None):</span>
+    # parse &#39;re&#39; pattern into list of (opcode, argument) tuples
+
+<span class="call">    source = Tokenizer(str)</span>
+
+    if pattern is None:
+        pattern = Pattern()
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>pattern</td>
 							<td>None</td>
 						</tr>
 						<tr>
-							<td>cls</td>
-							<td><class 'numbers.Integral'></td>
+							<td>flags</td>
+							<td>0</td>
 						</tr>
 						<tr>
-							<td>subclass</td>
-							<td><class 'NoneType'></td>
-						</tr>
-						<tr>
-							<td>subtype</td>
-							<td><class 'NoneType'></td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 100px">
-				<p>
-					<b>__subclasscheck__</b>
-					(/usr/lib/python3.6/abc.py:197)
-				</p>
-					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
-        """Override for issubclass(subclass, cls)."""
-        # Check cache
-<span class="call">        if subclass in cls._abc_cache:</span>
-            return True
-        # Check negative cache; may have to invalidate
-        if cls._abc_negative_cache_version < ABCMeta._abc_invalidation_counter:
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>subclass</td>
-							<td><class 'NoneType'></td>
-						</tr>
-						<tr>
-							<td>cls</td>
-							<td><class 'numbers.Integral'></td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 100px">
-				<p>
-					<b>__subclasscheck__</b>
-					(/usr/lib/python3.6/abc.py:202)
-				</p>
-					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
-        # Check negative cache; may have to invalidate
-        if cls._abc_negative_cache_version < ABCMeta._abc_invalidation_counter:
-            # Invalidate the negative cache
-<span class="call">            cls._abc_negative_cache = WeakSet()</span>
-            cls._abc_negative_cache_version = ABCMeta._abc_invalidation_counter
-        elif subclass in cls._abc_negative_cache:
-            return False
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>subclass</td>
-							<td><class 'NoneType'></td>
-						</tr>
-						<tr>
-							<td>cls</td>
-							<td><class 'numbers.Integral'></td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 100px">
-				<p>
-					<b>__subclasscheck__</b>
-					(/usr/lib/python3.6/abc.py:220)
-				</p>
-					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
-            cls._abc_cache.add(subclass)
-            return True
-        # Check if it's a subclass of a registered class (recursive)
-<span class="call">        for rcls in cls._abc_registry:</span>
-            if issubclass(subclass, rcls):
-                cls._abc_cache.add(subclass)
-                return True
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>subclass</td>
-							<td><class 'NoneType'></td>
-						</tr>
-						<tr>
-							<td>cls</td>
-							<td><class 'numbers.Integral'></td>
-						</tr>
-						<tr>
-							<td>ok</td>
-							<td>NotImplemented</td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 150px">
-				<p>
-					<b>__iter__</b>
-					(/usr/lib/python3.6/_weakrefset.py:59)
-				</p>
-					<code>            discard(l.pop())
-
-<span class="def">    def __iter__(self):</span>
-<span class="call">        with _IterationGuard(self):</span>
-            for itemref in self.data:
-                item = itemref()
-                if item is not None:
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>self</td>
-							<td><_weakrefset.WeakSet object at 0x7fd03f574550></td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 150px">
-				<p>
-					<b>__iter__</b>
-					(/usr/lib/python3.6/_weakrefset.py:59)
-				</p>
-					<code>            discard(l.pop())
-
-<span class="def">    def __iter__(self):</span>
-<span class="call">        with _IterationGuard(self):</span>
-            for itemref in self.data:
-                item = itemref()
-                if item is not None:
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>self</td>
-							<td><_weakrefset.WeakSet object at 0x7fd03f574550></td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 100px">
-				<p>
-					<b>__subclasscheck__</b>
-					(/usr/lib/python3.6/abc.py:220)
-				</p>
-					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
-            cls._abc_cache.add(subclass)
-            return True
-        # Check if it's a subclass of a registered class (recursive)
-<span class="call">        for rcls in cls._abc_registry:</span>
-            if issubclass(subclass, rcls):
-                cls._abc_cache.add(subclass)
-                return True
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>subclass</td>
-							<td><class 'NoneType'></td>
-						</tr>
-						<tr>
-							<td>cls</td>
-							<td><class 'numbers.Integral'></td>
-						</tr>
-						<tr>
-							<td>ok</td>
-							<td>NotImplemented</td>
-						</tr>
-						<tr>
-							<td>rcls</td>
-							<td><class 'int'></td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 150px">
-				<p>
-					<b>__iter__</b>
-					(/usr/lib/python3.6/_weakrefset.py:60)
-				</p>
-					<code>
-<span class="def">    def __iter__(self):</span>
-        with _IterationGuard(self):
-<span class="call">            for itemref in self.data:</span>
-                item = itemref()
-                if item is not None:
-                    # Caveat: the iterator will keep a strong reference to
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>self</td>
-							<td><_weakrefset.WeakSet object at 0x7fd03f574550></td>
-						</tr>
-						<tr>
-							<td>itemref</td>
-							<td><weakref at 0x7fd03f575778; to 'type' at 0x9c1820 (int)></td>
-						</tr>
-						<tr>
-							<td>item</td>
-							<td><class 'int'></td>
+							<td>str</td>
+							<td>&#39;[&#39;</td>
 						</tr>
 				</table>
 			</div>
 			<div class="frame" style="padding-left: 200px">
 				<p>
-					<b>__exit__</b>
-					(/usr/lib/python3.6/_weakrefset.py:32)
+					<b>__init__</b>
+					(/usr/lib/python3.6/sre_parse.py:231)
 				</p>
-					<code><span class="def">    def __exit__(self, e, t, b):</span>
-            s = w._iterating
-            s.remove(self)
-            if not s:
-<span class="call">                w._commit_removals()</span>
-
-
-class WeakSet:
+					<code><span class="def">    def __init__(self, string):</span>
+        self.decoded_string = string
+        self.index = 0
+        self.next = None
+<span class="call">        self.__next()</span>
+    def __next(self):
+        index = self.index
+        try:
 </code>
 				<table class="local-vars">
 					<tr>
@@ -331,80 +236,27 @@ class WeakSet:
 						<th>Value</th>
 					</tr>
 						<tr>
-							<td>b</td>
-							<td>None</td>
-						</tr>
-						<tr>
-							<td>t</td>
-							<td>None</td>
-						</tr>
-						<tr>
-							<td>e</td>
-							<td>None</td>
+							<td>string</td>
+							<td>&#39;[&#39;</td>
 						</tr>
 						<tr>
 							<td>self</td>
-							<td><_weakrefset._IterationGuard object at 0x7fd03dcb4358></td>
-						</tr>
-						<tr>
-							<td>w</td>
-							<td><_weakrefset.WeakSet object at 0x7fd03f574550></td>
-						</tr>
-						<tr>
-							<td>s</td>
-							<td>set()</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 100px">
+			<div class="frame" style="padding-left: 150px">
 				<p>
-					<b>__subclasscheck__</b>
-					(/usr/lib/python3.6/abc.py:220)
+					<b>parse</b>
+					(/usr/lib/python3.6/sre_parse.py:850)
 				</p>
-					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
-            cls._abc_cache.add(subclass)
-            return True
-        # Check if it's a subclass of a registered class (recursive)
-<span class="call">        for rcls in cls._abc_registry:</span>
-            if issubclass(subclass, rcls):
-                cls._abc_cache.add(subclass)
-                return True
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>subclass</td>
-							<td><class 'NoneType'></td>
-						</tr>
-						<tr>
-							<td>cls</td>
-							<td><class 'numbers.Integral'></td>
-						</tr>
-						<tr>
-							<td>ok</td>
-							<td>NotImplemented</td>
-						</tr>
-						<tr>
-							<td>rcls</td>
-							<td><class 'int'></td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 100px">
-				<p>
-					<b>__subclasscheck__</b>
-					(/usr/lib/python3.6/abc.py:230)
-				</p>
-					<code><span class="def">    def __subclasscheck__(cls, subclass):</span>
-                cls._abc_cache.add(subclass)
-                return True
-        # No dice; update negative cache
-<span class="call">        cls._abc_negative_cache.add(subclass)</span>
-        return False
+					<code><span class="def">def parse(str, flags=0, pattern=None):</span>
+    source = Tokenizer(str)
 
+    if pattern is None:
+<span class="call">        pattern = Pattern()</span>
+    pattern.flags = flags
+    pattern.str = str
 
 </code>
 				<table class="local-vars">
@@ -413,49 +265,676 @@ class WeakSet:
 						<th>Value</th>
 					</tr>
 						<tr>
-							<td>subclass</td>
-							<td><class 'NoneType'></td>
-						</tr>
-						<tr>
-							<td>cls</td>
-							<td><class 'numbers.Integral'></td>
-						</tr>
-						<tr>
-							<td>ok</td>
-							<td>NotImplemented</td>
-						</tr>
-						<tr>
-							<td>rcls</td>
-							<td><class 'int'></td>
-						</tr>
-				</table>
-			</div>
-			<div class="frame" style="padding-left: 0px">
-				<p>
-					<b>from_float</b>
-					(/usr/lib/python3.6/fractions.py:204)
-				</p>
-					<code><span class="def">    @classmethod</span>
-            return cls(f)
-        elif not isinstance(f, float):
-            raise TypeError("%s.from_float() only takes floats, not %r (%s)" %
-<span class="call">                            (cls.__name__, f, type(f).__name__))</span>
-        return cls(*f.as_integer_ratio())
-
-    @classmethod
-</code>
-				<table class="local-vars">
-					<tr>
-						<th>Local variable</th>
-						<th>Value</th>
-					</tr>
-						<tr>
-							<td>f</td>
+							<td>pattern</td>
 							<td>None</td>
 						</tr>
 						<tr>
-							<td>cls</td>
-							<td><class 'fractions.Fraction'></td>
+							<td>flags</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>str</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 150px">
+				<p>
+					<b>parse</b>
+					(/usr/lib/python3.6/sre_parse.py:855)
+				</p>
+					<code><span class="def">def parse(str, flags=0, pattern=None):</span>
+    pattern.str = str
+
+    try:
+<span class="call">        p = _parse_sub(source, pattern, flags &amp; SRE_FLAG_VERBOSE, 0)</span>
+    except Verbose:
+        # the VERBOSE flag was switched on inside the pattern.  to be
+        # on the safe side, we&#39;ll parse the whole thing again...
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>pattern</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>flags</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>str</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 200px">
+				<p>
+					<b>_parse_sub</b>
+					(/usr/lib/python3.6/sre_parse.py:413)
+				</p>
+					<code><span class="def">def _parse_sub(source, state, verbose, nested):</span>
+    items = []
+    itemsappend = items.append
+    sourcematch = source.match
+<span class="call">    start = source.tell()</span>
+    while True:
+        itemsappend(_parse(source, state, verbose, nested + 1,
+                           not nested and not items))
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>nested</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>items</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>itemsappend</td>
+							<td>&lt;built-in method append of list object at 0x7efc89a0d7c8&gt;</td>
+						</tr>
+						<tr>
+							<td>sourcematch</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 200px">
+				<p>
+					<b>_parse_sub</b>
+					(/usr/lib/python3.6/sre_parse.py:416)
+				</p>
+					<code><span class="def">def _parse_sub(source, state, verbose, nested):</span>
+    start = source.tell()
+    while True:
+        itemsappend(_parse(source, state, verbose, nested + 1,
+<span class="call">                           not nested and not items))</span>
+        if not sourcematch(&#34;|&#34;):
+            break
+
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>nested</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>items</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>itemsappend</td>
+							<td>&lt;built-in method append of list object at 0x7efc89a0d7c8&gt;</td>
+						</tr>
+						<tr>
+							<td>sourcematch</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>start</td>
+							<td>0</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 250px">
+				<p>
+					<b>_parse</b>
+					(/usr/lib/python3.6/sre_parse.py:472)
+				</p>
+					<code>
+<span class="def">def _parse(source, state, verbose, nested, first=False):</span>
+    # parse a simple pattern
+<span class="call">    subpattern = SubPattern(state)</span>
+
+    # precompute constants into local variables
+    subpatternappend = subpattern.append
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>first</td>
+							<td>True</td>
+						</tr>
+						<tr>
+							<td>nested</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 250px">
+				<p>
+					<b>_parse</b>
+					(/usr/lib/python3.6/sre_parse.py:488)
+				</p>
+					<code><span class="def">def _parse(source, state, verbose, nested, first=False):</span>
+            break # end of pattern
+        if this in &#34;|)&#34;:
+            break # end of subpattern
+<span class="call">        sourceget()</span>
+
+        if verbose:
+            # skip whitespace and comments
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>first</td>
+							<td>True</td>
+						</tr>
+						<tr>
+							<td>nested</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>subpattern</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>subpatternappend</td>
+							<td>&lt;bound method SubPattern.append of []&gt;</td>
+						</tr>
+						<tr>
+							<td>sourceget</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>sourcematch</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>_len</td>
+							<td>&lt;built-in function len&gt;</td>
+						</tr>
+						<tr>
+							<td>_ord</td>
+							<td>&lt;built-in function ord&gt;</td>
+						</tr>
+						<tr>
+							<td>this</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 300px">
+				<p>
+					<b>get</b>
+					(/usr/lib/python3.6/sre_parse.py:255)
+				</p>
+					<code>        return False
+<span class="def">    def get(self):</span>
+        this = self.next
+<span class="call">        self.__next()</span>
+        return this
+    def getwhile(self, n, charset):
+        result = &#39;&#39;
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>self</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>this</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 350px">
+				<p>
+					<b>__next</b>
+					(/usr/lib/python3.6/sre_parse.py:235)
+				</p>
+					<code><span class="def">    def __next(self):</span>
+        index = self.index
+        try:
+<span class="call">            char = self.decoded_string[index]</span>
+        except IndexError:
+            self.next = None
+            return
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>self</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>index</td>
+							<td>1</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 250px">
+				<p>
+					<b>_parse</b>
+					(/usr/lib/python3.6/sre_parse.py:509)
+				</p>
+					<code><span class="def">def _parse(source, state, verbose, nested, first=False):</span>
+            subpatternappend((LITERAL, _ord(this)))
+
+        elif this == &#34;[&#34;:
+<span class="call">            here = source.tell() - 1</span>
+            # character set
+            set = []
+            setappend = set.append
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>first</td>
+							<td>True</td>
+						</tr>
+						<tr>
+							<td>nested</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>subpattern</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>subpatternappend</td>
+							<td>&lt;bound method SubPattern.append of []&gt;</td>
+						</tr>
+						<tr>
+							<td>sourceget</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>sourcematch</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>_len</td>
+							<td>&lt;built-in function len&gt;</td>
+						</tr>
+						<tr>
+							<td>_ord</td>
+							<td>&lt;built-in function ord&gt;</td>
+						</tr>
+						<tr>
+							<td>this</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 250px">
+				<p>
+					<b>_parse</b>
+					(/usr/lib/python3.6/sre_parse.py:515)
+				</p>
+					<code><span class="def">def _parse(source, state, verbose, nested, first=False):</span>
+            setappend = set.append
+##          if sourcematch(&#34;:&#34;):
+##              pass # handle character classes
+<span class="call">            if sourcematch(&#34;^&#34;):</span>
+                setappend((NEGATE, None))
+            # check remaining characters
+            start = set[:]
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>first</td>
+							<td>True</td>
+						</tr>
+						<tr>
+							<td>nested</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>subpattern</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>subpatternappend</td>
+							<td>&lt;bound method SubPattern.append of []&gt;</td>
+						</tr>
+						<tr>
+							<td>sourceget</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>sourcematch</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>_len</td>
+							<td>&lt;built-in function len&gt;</td>
+						</tr>
+						<tr>
+							<td>_ord</td>
+							<td>&lt;built-in function ord&gt;</td>
+						</tr>
+						<tr>
+							<td>this</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+						<tr>
+							<td>here</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>set</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>setappend</td>
+							<td>&lt;built-in method append of list object at 0x7efc89a1f208&gt;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 250px">
+				<p>
+					<b>_parse</b>
+					(/usr/lib/python3.6/sre_parse.py:520)
+				</p>
+					<code><span class="def">def _parse(source, state, verbose, nested, first=False):</span>
+            # check remaining characters
+            start = set[:]
+            while True:
+<span class="call">                this = sourceget()</span>
+                if this is None:
+                    raise source.error(&#34;unterminated character set&#34;,
+                                       source.tell() - here)
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>first</td>
+							<td>True</td>
+						</tr>
+						<tr>
+							<td>nested</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>subpattern</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>subpatternappend</td>
+							<td>&lt;bound method SubPattern.append of []&gt;</td>
+						</tr>
+						<tr>
+							<td>sourceget</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>sourcematch</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>_len</td>
+							<td>&lt;built-in function len&gt;</td>
+						</tr>
+						<tr>
+							<td>_ord</td>
+							<td>&lt;built-in function ord&gt;</td>
+						</tr>
+						<tr>
+							<td>this</td>
+							<td>&#39;[&#39;</td>
+						</tr>
+						<tr>
+							<td>here</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>set</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>setappend</td>
+							<td>&lt;built-in method append of list object at 0x7efc89a1f208&gt;</td>
+						</tr>
+						<tr>
+							<td>start</td>
+							<td>[]</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 250px">
+				<p>
+					<b>_parse</b>
+					(/usr/lib/python3.6/sre_parse.py:523)
+				</p>
+					<code><span class="def">def _parse(source, state, verbose, nested, first=False):</span>
+                this = sourceget()
+                if this is None:
+                    raise source.error(&#34;unterminated character set&#34;,
+<span class="call">                                       source.tell() - here)</span>
+                if this == &#34;]&#34; and set != start:
+                    break
+                elif this[0] == &#34;\\&#34;:
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>first</td>
+							<td>True</td>
+						</tr>
+						<tr>
+							<td>nested</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+						</tr>
+						<tr>
+							<td>subpattern</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>subpatternappend</td>
+							<td>&lt;bound method SubPattern.append of []&gt;</td>
+						</tr>
+						<tr>
+							<td>sourceget</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>sourcematch</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>_len</td>
+							<td>&lt;built-in function len&gt;</td>
+						</tr>
+						<tr>
+							<td>_ord</td>
+							<td>&lt;built-in function ord&gt;</td>
+						</tr>
+						<tr>
+							<td>this</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>here</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>set</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>setappend</td>
+							<td>&lt;built-in method append of list object at 0x7efc89a1f208&gt;</td>
+						</tr>
+						<tr>
+							<td>start</td>
+							<td>[]</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 300px">
+				<p>
+					<b>error</b>
+					(/usr/lib/python3.6/sre_parse.py:292)
+				</p>
+					<code>        self.__next()
+
+<span class="def">    def error(self, msg, offset=0):</span>
+<span class="call">        return error(msg, self.string, self.tell() - offset)</span>
+
+def _class_escape(source, escape):
+    # handle escape code inside character class
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>offset</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>msg</td>
+							<td>&#39;unterminated character set&#39;</td>
+						</tr>
+						<tr>
+							<td>self</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
 						</tr>
 				</table>
 			</div>
