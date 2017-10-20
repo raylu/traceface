@@ -105,8 +105,12 @@ class Frame:
 		start = max(self.line_no - 4, 0)
 		self.context_lines = copy.copy(lines[start:self.line_no + 3])
 		self.call_index = self.line_no - start - 1
-		if self.first_line_no >= start:
+		if self.first_line_no - 1 >= start:
 			self.def_index = self.first_line_no - start - 1
+		else:
+			self.context_lines.insert(0, lines[self.first_line_no - 1])
+			self.def_index = 0
+			self.call_index += 1
 
 	def __repr__(self):
 		return '%s(%r, %r, %r, %r, %r, %r)' % (self.__class__.__name__, self.filepath, self.func_name,
