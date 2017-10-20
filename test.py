@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 def hello():
-	for i in range(2):
-		shout('hello')
+	gen = (shout('hello') for _ in range(2))
+	next(gen)
 
 def shout(s):
 	try:
