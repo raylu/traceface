@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 def hello():
-	gen = (shout('hello') for _ in range(2))
-	next(gen)
+	gen = (shout(s) for s in ['hello', 'bye'])
+	list(gen)
 
 def shout(s):
 	try:
@@ -11,4 +11,6 @@ def shout(s):
 		raise Exception('whoops')
 
 def say(s):
-	raise Exception(s)
+	print(s)
+	if s == 'BYE':
+		raise Exception(s)

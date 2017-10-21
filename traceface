@@ -61,9 +61,9 @@ class Tracer:
 
 	def handle_exception(self, frame):
 		if frame is not self.bottom_frame:
-			self._add_trace(frame)
+			self._add_trace(frame, filter=True)
 
-	def _add_trace(self, frame):
+	def _add_trace(self, frame, filter=False):
 		local_vars = frame.f_locals
 		code = frame.f_code
 		line_no = frame.f_lineno
@@ -73,8 +73,9 @@ class Tracer:
 			frame = frame.f_back
 			depth += 1
 		frame_obj = Frame(code.co_filename, code.co_name, line_no, first_line_no, depth, local_vars)
-		if frame_obj not in self.trace: # don't add frames for exceptions bubbling up
-			self.trace.append(frame_obj)
+		if filter and frame_obj in self.trace: # don't add frames for exceptions bubbling up
+			return
+		self.trace.append(frame_obj)
 
 class Frame:
 	files = {}
