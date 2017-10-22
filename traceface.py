@@ -1,3 +1,4 @@
+import atexit
 import copy
 from os import path
 import sys
@@ -5,6 +6,32 @@ import sys
 import jinja2
 
 tf_dir = path.dirname(path.abspath(__file__))
+
+def set_trace():
+	if sys.gettrace() is not None:
+		return
+	tracer = Tracer()
+	atexit.register(tracer.write_output)
+	sys.settrace(tracer.trace_dispatch)
+
+def trace():
+	return TraceContextManager()
+
+class TraceContextManager:
+	def __init__(self):
+		self.tracer = None
+
+	def __enter__(self):
+		if sys.gettrace() is not None:
+			return
+		self.tracer = Tracer()
+		sys.settrace(self.tracer.trace_dispatch)
+
+	def __exit__(self, exc_type, exc_value, traceback):
+		if self.tracer is None:
+			return
+		sys.settrace(None)
+		self.tracer.write_output()
 
 class Tracer:
 	def __init__(self):

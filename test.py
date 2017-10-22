@@ -5,6 +5,7 @@ def hello():
 	list(gen)
 
 def shout(s):
+	import traceface; traceface.set_trace()
 	try:
 		say(s.upper())
 	except:
@@ -14,3 +15,6 @@ def say(s):
 	print(s)
 	if s == 'BYE':
 		raise Exception(s)
+
+if __name__ == '__main__':
+	hello()
