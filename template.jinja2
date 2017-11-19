@@ -3,10 +3,13 @@
 	<head>
 		<title>traceface</title>
 		<link rel="stylesheet" href="style.css">
+		<script src="frames.js"></script>
 	</head>
 	<body>
+		<button id="expand-all">expand all</button>
+		<button id="collapse-all">collapse all</button>
 		{% for frame in trace %}
-			<div class="frame" style="padding-left: {{ 50 * frame.depth }}px">
+			<div class="frame" style="padding-left: {{ 50 * frame.depth }}px" data-depth="{{ frame.depth }}">
 				<p>
 					<b>{{frame.func_name}}</b>
 					({{ frame.filepath }}:{{ frame.line_no}})

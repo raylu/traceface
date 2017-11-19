@@ -20,6 +20,10 @@ div.frame p {
 	margin-top: 10px;
 }
 
+div.frame code, div.frame table {
+	display: none;
+}
+
 code {
 	display: block;
 	white-space: pre;
