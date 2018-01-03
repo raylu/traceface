@@ -3,9 +3,12 @@
 	<head>
 		<title>traceface</title>
 		<link rel="stylesheet" href="style.css">
+		<script src="frames.js"></script>
 	</head>
 	<body>
-			<div class="frame" style="padding-left: 0px">
+		<button id="expand-all">expand all</button>
+		<button id="collapse-all">collapse all</button>
+			<div class="frame" style="padding-left: 0px" data-depth="0">
 				<p>
 					<b>match</b>
 					(/usr/lib/python3.6/re.py:172)
@@ -37,7 +40,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 50px">
+			<div class="frame" style="padding-left: 50px" data-depth="1">
 				<p>
 					<b>_compile</b>
 					(/usr/lib/python3.6/re.py:289)
@@ -65,7 +68,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 50px">
+			<div class="frame" style="padding-left: 50px" data-depth="1">
 				<p>
 					<b>_compile</b>
 					(/usr/lib/python3.6/re.py:299)
@@ -94,7 +97,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 50px">
+			<div class="frame" style="padding-left: 50px" data-depth="1">
 				<p>
 					<b>_compile</b>
 					(/usr/lib/python3.6/re.py:301)
@@ -123,7 +126,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 100px">
+			<div class="frame" style="padding-left: 100px" data-depth="2">
 				<p>
 					<b>compile</b>
 					(/usr/lib/python3.6/sre_compile.py:560)
@@ -151,7 +154,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 100px">
+			<div class="frame" style="padding-left: 100px" data-depth="2">
 				<p>
 					<b>compile</b>
 					(/usr/lib/python3.6/sre_compile.py:562)
@@ -184,7 +187,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 150px">
+			<div class="frame" style="padding-left: 150px" data-depth="3">
 				<p>
 					<b>parse</b>
 					(/usr/lib/python3.6/sre_parse.py:847)
@@ -216,7 +219,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 200px">
+			<div class="frame" style="padding-left: 200px" data-depth="4">
 				<p>
 					<b>__init__</b>
 					(/usr/lib/python3.6/sre_parse.py:231)
@@ -241,11 +244,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>self</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 150px">
+			<div class="frame" style="padding-left: 150px" data-depth="3">
 				<p>
 					<b>parse</b>
 					(/usr/lib/python3.6/sre_parse.py:850)
@@ -278,11 +281,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 150px">
+			<div class="frame" style="padding-left: 150px" data-depth="3">
 				<p>
 					<b>parse</b>
 					(/usr/lib/python3.6/sre_parse.py:855)
@@ -303,7 +306,7 @@ def fullmatch(pattern, string, flags=0):
 					</tr>
 						<tr>
 							<td>pattern</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>flags</td>
@@ -315,11 +318,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 200px">
+			<div class="frame" style="padding-left: 200px" data-depth="4">
 				<p>
 					<b>_parse_sub</b>
 					(/usr/lib/python3.6/sre_parse.py:413)
@@ -348,11 +351,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>state</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>items</td>
@@ -360,15 +363,15 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>itemsappend</td>
-							<td>&lt;built-in method append of list object at 0x7efc89a0d7c8&gt;</td>
+							<td>&lt;built-in method append of list object at 0x7fc74832ea88&gt;</td>
 						</tr>
 						<tr>
 							<td>sourcematch</td>
-							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 200px">
+			<div class="frame" style="padding-left: 200px" data-depth="4">
 				<p>
 					<b>_parse_sub</b>
 					(/usr/lib/python3.6/sre_parse.py:416)
@@ -397,11 +400,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>state</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>items</td>
@@ -409,11 +412,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>itemsappend</td>
-							<td>&lt;built-in method append of list object at 0x7efc89a0d7c8&gt;</td>
+							<td>&lt;built-in method append of list object at 0x7fc74832ea88&gt;</td>
 						</tr>
 						<tr>
 							<td>sourcematch</td>
-							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>start</td>
@@ -421,7 +424,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 250px">
+			<div class="frame" style="padding-left: 250px" data-depth="5">
 				<p>
 					<b>_parse</b>
 					(/usr/lib/python3.6/sre_parse.py:472)
@@ -453,15 +456,15 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>state</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 250px">
+			<div class="frame" style="padding-left: 250px" data-depth="5">
 				<p>
 					<b>_parse</b>
 					(/usr/lib/python3.6/sre_parse.py:488)
@@ -494,11 +497,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>state</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>subpattern</td>
@@ -510,11 +513,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>sourceget</td>
-							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>sourcematch</td>
-							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>_len</td>
@@ -530,7 +533,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 300px">
+			<div class="frame" style="padding-left: 300px" data-depth="6">
 				<p>
 					<b>get</b>
 					(/usr/lib/python3.6/sre_parse.py:255)
@@ -550,7 +553,7 @@ def fullmatch(pattern, string, flags=0):
 					</tr>
 						<tr>
 							<td>self</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>this</td>
@@ -558,7 +561,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 350px">
+			<div class="frame" style="padding-left: 350px" data-depth="7">
 				<p>
 					<b>__next</b>
 					(/usr/lib/python3.6/sre_parse.py:235)
@@ -578,7 +581,7 @@ def fullmatch(pattern, string, flags=0):
 					</tr>
 						<tr>
 							<td>self</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>index</td>
@@ -586,7 +589,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 250px">
+			<div class="frame" style="padding-left: 250px" data-depth="5">
 				<p>
 					<b>_parse</b>
 					(/usr/lib/python3.6/sre_parse.py:509)
@@ -619,11 +622,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>state</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>subpattern</td>
@@ -635,11 +638,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>sourceget</td>
-							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>sourcematch</td>
-							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>_len</td>
@@ -655,7 +658,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 250px">
+			<div class="frame" style="padding-left: 250px" data-depth="5">
 				<p>
 					<b>_parse</b>
 					(/usr/lib/python3.6/sre_parse.py:515)
@@ -688,11 +691,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>state</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>subpattern</td>
@@ -704,11 +707,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>sourceget</td>
-							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>sourcematch</td>
-							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>_len</td>
@@ -732,11 +735,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>setappend</td>
-							<td>&lt;built-in method append of list object at 0x7efc89a1f208&gt;</td>
+							<td>&lt;built-in method append of list object at 0x7fc748875fc8&gt;</td>
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 250px">
+			<div class="frame" style="padding-left: 250px" data-depth="5">
 				<p>
 					<b>_parse</b>
 					(/usr/lib/python3.6/sre_parse.py:520)
@@ -769,11 +772,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>state</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>subpattern</td>
@@ -785,11 +788,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>sourceget</td>
-							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>sourcematch</td>
-							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>_len</td>
@@ -813,7 +816,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>setappend</td>
-							<td>&lt;built-in method append of list object at 0x7efc89a1f208&gt;</td>
+							<td>&lt;built-in method append of list object at 0x7fc748875fc8&gt;</td>
 						</tr>
 						<tr>
 							<td>start</td>
@@ -821,7 +824,35 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 250px">
+			<div class="frame" style="padding-left: 300px" data-depth="6">
+				<p>
+					<b>get</b>
+					(/usr/lib/python3.6/sre_parse.py:255)
+				</p>
+					<code>        return False
+<span class="def">    def get(self):</span>
+        this = self.next
+<span class="call">        self.__next()</span>
+        return this
+    def getwhile(self, n, charset):
+        result = &#39;&#39;
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>self</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
+						</tr>
+						<tr>
+							<td>this</td>
+							<td>None</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 250px" data-depth="5">
 				<p>
 					<b>_parse</b>
 					(/usr/lib/python3.6/sre_parse.py:523)
@@ -854,11 +885,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>state</td>
-							<td>&lt;sre_parse.Pattern object at 0x7efc899b10f0&gt;</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
 						</tr>
 						<tr>
 							<td>source</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 						<tr>
 							<td>subpattern</td>
@@ -870,11 +901,11 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>sourceget</td>
-							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>sourcematch</td>
-							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;&gt;</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
 						</tr>
 						<tr>
 							<td>_len</td>
@@ -898,7 +929,7 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 						<tr>
 							<td>setappend</td>
-							<td>&lt;built-in method append of list object at 0x7efc89a1f208&gt;</td>
+							<td>&lt;built-in method append of list object at 0x7fc748875fc8&gt;</td>
 						</tr>
 						<tr>
 							<td>start</td>
@@ -906,7 +937,92 @@ def fullmatch(pattern, string, flags=0):
 						</tr>
 				</table>
 			</div>
-			<div class="frame" style="padding-left: 300px">
+			<div class="frame" style="padding-left: 250px" data-depth="5">
+				<p>
+					<b>_parse</b>
+					(/usr/lib/python3.6/sre_parse.py:523)
+				</p>
+					<code><span class="def">def _parse(source, state, verbose, nested, first=False):</span>
+                this = sourceget()
+                if this is None:
+                    raise source.error(&#34;unterminated character set&#34;,
+<span class="call">                                       source.tell() - here)</span>
+                if this == &#34;]&#34; and set != start:
+                    break
+                elif this[0] == &#34;\\&#34;:
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>first</td>
+							<td>True</td>
+						</tr>
+						<tr>
+							<td>nested</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>verbose</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>state</td>
+							<td>&lt;sre_parse.Pattern object at 0x7fc74833b160&gt;</td>
+						</tr>
+						<tr>
+							<td>source</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
+						</tr>
+						<tr>
+							<td>subpattern</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>subpatternappend</td>
+							<td>&lt;bound method SubPattern.append of []&gt;</td>
+						</tr>
+						<tr>
+							<td>sourceget</td>
+							<td>&lt;bound method Tokenizer.get of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>sourcematch</td>
+							<td>&lt;bound method Tokenizer.match of &lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;&gt;</td>
+						</tr>
+						<tr>
+							<td>_len</td>
+							<td>&lt;built-in function len&gt;</td>
+						</tr>
+						<tr>
+							<td>_ord</td>
+							<td>&lt;built-in function ord&gt;</td>
+						</tr>
+						<tr>
+							<td>this</td>
+							<td>None</td>
+						</tr>
+						<tr>
+							<td>here</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>set</td>
+							<td>[]</td>
+						</tr>
+						<tr>
+							<td>setappend</td>
+							<td>&lt;built-in method append of list object at 0x7fc748875fc8&gt;</td>
+						</tr>
+						<tr>
+							<td>start</td>
+							<td>[]</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 300px" data-depth="6">
 				<p>
 					<b>error</b>
 					(/usr/lib/python3.6/sre_parse.py:292)
@@ -934,7 +1050,39 @@ def _class_escape(source, escape):
 						</tr>
 						<tr>
 							<td>self</td>
-							<td>&lt;sre_parse.Tokenizer object at 0x7efc89a0ff28&gt;</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
+						</tr>
+				</table>
+			</div>
+			<div class="frame" style="padding-left: 300px" data-depth="6">
+				<p>
+					<b>error</b>
+					(/usr/lib/python3.6/sre_parse.py:292)
+				</p>
+					<code>        self.__next()
+
+<span class="def">    def error(self, msg, offset=0):</span>
+<span class="call">        return error(msg, self.string, self.tell() - offset)</span>
+
+def _class_escape(source, escape):
+    # handle escape code inside character class
+</code>
+				<table class="local-vars">
+					<tr>
+						<th>Local variable</th>
+						<th>Value</th>
+					</tr>
+						<tr>
+							<td>offset</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>msg</td>
+							<td>&#39;unterminated character set&#39;</td>
+						</tr>
+						<tr>
+							<td>self</td>
+							<td>&lt;sre_parse.Tokenizer object at 0x7fc74833b710&gt;</td>
 						</tr>
 				</table>
 			</div>
