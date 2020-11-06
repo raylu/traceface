@@ -1,27 +1,45 @@
 #!/usr/bin/env python3
 
 import argparse
+import sys
 import traceback
 
 import traceface
 
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('code', metavar='CODE', type=str)
+	parser.add_argument('code', metavar='CODE', type=str, nargs='?')
 	parser.add_argument('-i', dest='module', type=str)
+	parser.add_argument('-s', dest='server', action='store_true')
 	args = parser.parse_args()
+	if args.code is None and not args.server:
+		sys.stderr.write('must specify CODE or -s\n\n')
+		parser.print_help()
+		sys.exit(1)
+	if args.code and args.server:
+		sys.stderr.write('cannot specify both CODE and -s\n\n')
+		parser.print_help()
+		sys.exit(1)
 
-	run_globals = None
+	run_globals = {}
 	if args.module is not None:
 		module = __import__(args.module)
 		run_globals = {module.__name__: module}
 	tracer = traceface.Tracer()
 	try:
-		tracer.run(args.code, run_globals)
+		code = args.code
+		if args.server:
+			code = sys.stdin.read()
+			sys.stdout = open('/dev/null', 'w')
+		tracer.run(code, run_globals)
 	except:
 		traceback.print_exc()
 
-	tracer.write_output()
+	out = None
+	if args.server:
+		sys.stdout.close()
+		out = sys.__stdout__
+	tracer.write_output(out)
 
 if __name__ == '__main__':
 	main()

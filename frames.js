@@ -1,8 +1,8 @@
 'use strict';
 
 function getFrameState(frame) {
-	const code = frame.querySelector('code')
-	return code.style.display === 'block' ? 'expand' : 'collapse';
+	const table = frame.querySelector('table')
+	return table.style.display === 'block' ? 'expand' : 'collapse';
 }
 
 // `state` is 'collapse' or 'expand'
@@ -10,7 +10,8 @@ function setFrameState(frame, state) {
 	const display = state === 'expand' ? 'block' : 'none';
 	const code = frame.querySelector('code');
 	const table = frame.querySelector('table');
-	code.style.display = display;
+	if (code !== null)
+		code.style.display = display;
 	table.style.display = display;
 }
 
@@ -76,4 +77,3 @@ function initEventListeners() {
 window.onload = function() {
 	initEventListeners();
 }
-

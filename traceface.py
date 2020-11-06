@@ -76,19 +76,25 @@ class Tracer:
 			return
 		self.trace.append(frame_obj)
 
-	def write_output(self):
+	def write_output(self, out=None):
 		trace = self.trace
 		for frame in trace:
 			frame.context()
 
 		with open(path.join(tf_dir, 'template.jinja2'), 'r') as f:
 			template = jinja2.Template(f.read(), autoescape=True, trim_blocks=True, lstrip_blocks=True)
-		output_path = path.join(tf_dir, 'trace.html')
-		with open(output_path, 'w') as f:
+
+		if out is None:
+			output_path = path.join(tf_dir, 'trace.html')
+			out = open(output_path, 'w')
+			print('writing trace to trace.html')
+		try:
 			stream = template.stream({'trace': trace})
 			stream.enable_buffering()
-			stream.dump(f)
-		print('trace written to', output_path)
+			stream.dump(out)
+		finally:
+			if hasattr(out, 'close'):
+				out.close()
 
 class Frame:
 	files = {}

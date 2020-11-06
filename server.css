@@ -1,0 +1,34 @@
+body {
+	background-color: #000;
+	font-family: sans-serif;
+}
+
+form {
+	margin: 4em auto;
+}
+form > * {
+	margin: 0 auto;
+	display: block;
+	background-color: #111;
+	color: #eee;
+}
+
+textarea {
+	width: calc(100% - 20vh);
+	height: 50em;
+	tab-size: 4;
+}
+
+input[type="submit"] {
+	border: 1px solid #777;
+	padding: 4px 8px;
+}
+
+div.github {
+	margin: 4em auto;
+	text-align: center;
+}
+
+a {
+	color: #08a;
+}
