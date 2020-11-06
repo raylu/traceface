@@ -2,6 +2,7 @@ import atexit
 import copy
 from os import path
 import sys
+import traceback
 
 import jinja2
 
@@ -37,11 +38,14 @@ class Tracer:
 	def __init__(self):
 		self.trace = []
 		self.bottom_frame = None
+		self.error = None
 
 	def run(self, code, run_globals=None):
 		sys.settrace(self.trace_dispatch)
 		try:
 			exec(code, run_globals)
+		except Exception as e:
+			self.error = sys.exc_info()
 		finally:
 			sys.settrace(None)
 
@@ -89,7 +93,10 @@ class Tracer:
 			out = open(output_path, 'w')
 			print('writing trace to trace.html')
 		try:
-			stream = template.stream({'trace': trace})
+			context = {'trace': trace}
+			if self.error:
+				context['error'] = ''.join(traceback.format_exception(*self.error))
+			stream = template.stream(context)
 			stream.enable_buffering()
 			stream.dump(out)
 		finally:
@@ -112,7 +119,7 @@ class Frame:
 		self.def_index = None
 
 	def context(self):
-		if self.filepath[0] == '<': # <module>, <string>
+		if self.filepath[0] == '<module>':
 			return
 		lines = self.files.get(self.filepath)
 		if lines is None:

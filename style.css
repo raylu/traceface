@@ -24,7 +24,7 @@ div.frame code, div.frame table {
 	display: none;
 }
 
-code {
+div.error, code {
 	display: block;
 	white-space: pre;
 	tab-size: 4;

@@ -31,6 +31,7 @@ def main():
 		code = args.code
 		if args.server:
 			code = sys.stdin.read()
+			traceface.Frame.files['<string>'] = code.split('\n')
 			sys.stdout = io.StringIO()
 		tracer.run(code, run_globals)
 	except:
