@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import io
 import sys
 import traceback
 
@@ -30,15 +31,14 @@ def main():
 		code = args.code
 		if args.server:
 			code = sys.stdin.read()
-			sys.stdout = open('/dev/null', 'w')
+			sys.stdout = io.StringIO()
 		tracer.run(code, run_globals)
 	except:
 		traceback.print_exc()
 
 	out = None
 	if args.server:
-		sys.stdout.close()
-		out = sys.__stdout__
+		out = sys.stdout = sys.__stdout__
 	tracer.write_output(out)
 
 if __name__ == '__main__':

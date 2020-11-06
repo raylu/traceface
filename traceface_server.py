@@ -15,9 +15,17 @@ html = None
 def root(request):
 	return Response(html, content_type='text/html; charset=UTF-8')
 
+traceface_dir = path.dirname(path.abspath(__file__))
+chroot_dir = path.join(traceface_dir, 'chroot')
+MB = 1024 * 1024
 def trace(request):
 	code = request.body['code'].encode('utf-8')
-	p = subprocess.run(['./traceface', '-s'], input=code, capture_output=True, timeout=10)
+	args = ['../nsjail/nsjail', '-Mo', '--chroot', chroot_dir, '-E', 'LANG=en_US.UTF-8',
+			'-R/usr', '-R/lib', '-R/lib64', '-R%s:/traceface' % traceface_dir, '-D/traceface',
+			'--time_limit', '2', '--disable_proc', '--iface_no_lo',
+			'--cgroup_mem_max', str(50 * MB), '--cgroup_pids_max', '1', '--quiet', '--',
+			'/usr/bin/python3', '-q', 'traceface', '-s']
+	p = subprocess.run(args, input=code, capture_output=True, timeout=5)
 	return Response(p.stdout, content_type='text/html; charset=UTF-8')
 
 def static(request, filename):
