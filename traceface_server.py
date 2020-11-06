@@ -22,9 +22,9 @@ def trace(request):
 	code = request.body['code'].encode('utf-8')
 	args = ['../nsjail/nsjail', '-Mo', '--chroot', chroot_dir, '-E', 'LANG=en_US.UTF-8',
 			'-R/usr', '-R/lib', '-R/lib64', '-R%s:/traceface' % traceface_dir, '-D/traceface',
-			'--time_limit', '2', '--disable_proc', '--iface_no_lo',
-			'--cgroup_mem_max', str(50 * MB), '--cgroup_pids_max', '1', '--quiet', '--',
-			'/usr/bin/python3', '-q', 'traceface', '-s']
+			'--user', 'nobody', '--group', 'nogroup', '--time_limit', '2', '--disable_proc',
+			'--iface_no_lo', '--cgroup_mem_max', str(50 * MB), '--cgroup_pids_max', '1', '--quiet',
+			'--', '/usr/bin/python3', '-q', 'traceface', '-s']
 	p = subprocess.run(args, input=code, capture_output=True, timeout=5)
 	return Response(p.stdout, content_type='text/html; charset=UTF-8')
 
