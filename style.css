@@ -14,6 +14,10 @@ body {
 div.frame {
 	margin: 10px 25px;
 	border-top: 1px solid #333;
+	cursor: zoom-in;
+}
+div.frame.expanded {
+	cursor: zoom-out;
 }
 
 div.frame p {
@@ -22,6 +26,9 @@ div.frame p {
 
 div.frame code, div.frame table {
 	display: none;
+}
+div.frame.expanded code, div.frame.expanded table {
+	display: block;
 }
 
 div.error, code {

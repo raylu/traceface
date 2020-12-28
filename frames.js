@@ -1,35 +1,13 @@
 'use strict';
 
-function getFrameState(frame) {
-	const table = frame.querySelector('table')
-	return table.style.display === 'block' ? 'expand' : 'collapse';
-}
-
-// `state` is 'collapse' or 'expand'
-function setFrameState(frame, state) {
-	const display = state === 'expand' ? 'block' : 'none';
-	const code = frame.querySelector('code');
-	const table = frame.querySelector('table');
-	if (code !== null)
-		code.style.display = display;
-	table.style.display = display;
-}
-
-function setAllFrameStates(state) {
-	const frames = document.getElementsByClassName('frame');
-	for (let frame of frames) {
-		setFrameState(frame, state);
-	}
-}
-
 function parseDepth(frame) {
 	return parseInt(frame.dataset.depth);
 }
 
 // Returns next frame element or null
 function getNextFrame(frame) {
-	frame = frame.nextSibling;
-	while (frame && frame.className !== 'frame') {
+	frame = frame.nextElementSibling;
+	while (frame && !frame.classList.contains('frame')) {
 		frame = frame.nextSibling;
 	}
 	return frame;
@@ -49,10 +27,13 @@ function getAllChildFrames(frame) {
 // Toggles a frame and applies same action to all its child frames
 // `this` refers to frame DOM element
 function toggleFrame(event) {
-	const state = getFrameState(this) === 'collapse' ? 'expand' : 'collapse';
+	const expanded = this.classList.contains('expanded');
 	const framesToSet = [this].concat(getAllChildFrames(this))
 	for (const frame of framesToSet) {
-		setFrameState(frame, state);
+		if (expanded)
+			frame.classList.remove('expanded');
+		else
+			frame.classList.add('expanded');
 	}
 }
 
@@ -67,10 +48,12 @@ function initEventListeners() {
 	const expandAllButton = document.getElementById('expand-all');
 	const collapseAllButton = document.getElementById('collapse-all');
 	expandAllButton.addEventListener('click', function(event) {
-		setAllFrameStates('expand');
+		for (const frame of frames)
+			frame.classList.add('expanded');
 	});
 	collapseAllButton.addEventListener('click', function(event) {
-		setAllFrameStates('collapse');
+		for (const frame of frames)
+			frame.classList.remove('expanded');
 	});
 }
 
