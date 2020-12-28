@@ -28,7 +28,7 @@ function getAllChildFrames(frame) {
 // `this` refers to frame DOM element
 function toggleFrame(event) {
 	const expanded = this.classList.contains('expanded');
-	const framesToSet = [this].concat(getAllChildFrames(this))
+	const framesToSet = [this].concat(getAllChildFrames(this));
 	for (const frame of framesToSet) {
 		if (expanded)
 			frame.classList.remove('expanded');
@@ -47,16 +47,14 @@ function initEventListeners() {
 	// expand-all/collapse-all buttons
 	const expandAllButton = document.getElementById('expand-all');
 	const collapseAllButton = document.getElementById('collapse-all');
-	expandAllButton.addEventListener('click', function(event) {
+	expandAllButton.addEventListener('click', function expandAll(event) {
 		for (const frame of frames)
 			frame.classList.add('expanded');
 	});
-	collapseAllButton.addEventListener('click', function(event) {
+	collapseAllButton.addEventListener('click', function collapseAll(event) {
 		for (const frame of frames)
 			frame.classList.remove('expanded');
 	});
 }
 
-window.onload = function() {
-	initEventListeners();
-}
+window.onload = initEventListeners;
