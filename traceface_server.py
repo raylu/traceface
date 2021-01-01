@@ -7,9 +7,11 @@ import mimetypes
 from os import path
 import subprocess
 import sys
+import urllib.request
 
 import eventlet.wsgi
 from pigwig import PigWig, Response
+import pigwig.exceptions
 
 html = None
 def root(request):
@@ -19,7 +21,25 @@ traceface_dir = path.dirname(path.abspath(__file__))
 chroot_dir = path.join(traceface_dir, 'chroot')
 MB = 1024 * 1024
 def trace(request):
+	if len(request.body['paste']) > 0:
+		return Response(code=303, location='/trace/' + request.body['paste'])
 	code = request.body['code'].encode('utf-8')
+	return _trace(code)
+
+def trace_paste(request, paste):
+	url = 'https://cpy.pt/raw/' + paste
+	with urllib.request.urlopen(url) as r:
+		if r.status != 200:
+			try:
+				content = r.read()
+			except Exception:
+				content = None
+			raise pigwig.exceptions.HTTPException(500,
+					b'%s: %d\n%s' % (url.encode('ascii'), r.status, content))
+		code = r.read()
+	return _trace(code)
+
+def _trace(code):
 	args = ['../nsjail/nsjail', '-Mo', '--chroot', chroot_dir, '-E', 'LANG=en_US.UTF-8',
 			'-R/usr', '-R/lib', '-R/lib64', '-R%s:/traceface' % traceface_dir, '-D/traceface',
 			'--user', 'nobody', '--group', 'nogroup', '--time_limit', '2', '--disable_proc',
@@ -42,6 +62,7 @@ def static(request, filename):
 routes = [
 	('GET', '/', root),
 	('POST', '/trace', trace),
+	('GET', '/trace/<paste>', trace_paste),
 	('GET', '/<filename>', static),
 ]
 

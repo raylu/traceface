@@ -80,7 +80,7 @@ class Tracer:
 			return
 		self.trace.append(frame_obj)
 
-	def write_output(self, out=None):
+	def write_output(self, out=None, static_path=''):
 		trace = self.trace
 		for frame in trace:
 			frame.context()
@@ -93,7 +93,7 @@ class Tracer:
 			out = open(output_path, 'w')
 			print('writing trace to trace.html')
 		try:
-			context = {'trace': trace}
+			context = {'trace': trace, 'static_path': static_path}
 			if self.error:
 				context['error'] = ''.join(traceback.format_exception(*self.error))
 			stream = template.stream(context)

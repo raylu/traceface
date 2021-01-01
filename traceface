@@ -40,7 +40,7 @@ def main():
 	out = None
 	if args.server:
 		out = sys.stdout = sys.__stdout__
-	tracer.write_output(out)
+	tracer.write_output(out, '/')
 
 if __name__ == '__main__':
 	main()

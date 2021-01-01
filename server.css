@@ -1,5 +1,6 @@
 body {
 	background-color: #000;
+	color: #eee;
 	font-family: sans-serif;
 }
 
@@ -7,8 +8,11 @@ form {
 	margin: 4em auto;
 }
 form > * {
-	margin: 0 auto;
 	display: block;
+	margin: 0 auto;
+}
+
+textarea, input {
 	background-color: #111;
 	color: #eee;
 }
@@ -22,6 +26,12 @@ textarea {
 input[type="submit"] {
 	border: 1px solid #777;
 	padding: 4px 8px;
+}
+
+div.paste {
+	width: 250px;
+	margin: 1em auto;
+	text-align: center;
 }
 
 div.github {
