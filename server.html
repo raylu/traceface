@@ -7,6 +7,7 @@
 </head>
 <body>
 	<form method="post" action="/trace">
+		<div class="instructions">input some code and click trace</div>
 		<textarea name="code">
 class Node(object):
 	def __init__(self, value):
@@ -43,8 +44,9 @@ tree.root.right.left = Node(36)
 tree.root.right.right = Node(69)
 print(tree.print_tree("preorder"))
 		</textarea>
+		<input type="submit" value="trace">
 		<div class="paste">
-			or <br>
+			<p>or paste some code to permalink to the trace</p>
 			https://cpy.pt/<input type="text" name="paste">
 		</div>
 		<input type="submit" value="trace">
