@@ -40,7 +40,8 @@ def trace_paste(request, paste):
 	return _trace(code)
 
 def _trace(code):
-	args = ['../nsjail/nsjail', '-Mo', '--chroot', chroot_dir, '-E', 'LANG=en_US.UTF-8',
+	args = ['../nsjail/nsjail', '--use_cgroupv2', '--cgroupv2_mount', '/sys/fs/cgroup/NSJAIL',
+			'-Mo', '--chroot', chroot_dir, '-E', 'LANG=en_US.UTF-8',
 			'-R/usr', '-R/lib', '-R/lib64', '-R%s:/traceface' % traceface_dir, '-D/traceface',
 			'--user', 'nobody', '--group', 'nogroup', '--time_limit', '2', '--disable_proc',
 			'--iface_no_lo', '--cgroup_mem_max', str(50 * MB), '--cgroup_pids_max', '1', '--quiet',
