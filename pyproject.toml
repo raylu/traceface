@@ -1,0 +1,8 @@
+[project]
+name = 'traceface'
+version = '0'
+dependencies = [
+	'eventlet',
+	'jinja2',
+	'pigwig',
+]

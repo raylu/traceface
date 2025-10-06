@@ -42,10 +42,11 @@ def trace_paste(request, paste):
 def _trace(code):
 	args = ['../nsjail/nsjail', '--use_cgroupv2', '--cgroupv2_mount', '/sys/fs/cgroup/NSJAIL',
 			'-Mo', '--chroot', chroot_dir, '-E', 'LANG=en_US.UTF-8',
-			'-R/usr', '-R/lib', '-R/lib64', '-R%s:/traceface' % traceface_dir, '-D/traceface',
+			'-R/lib', '-R/usr', '-R%s:/traceface' % traceface_dir, '-D/traceface',
 			'--user', 'nobody', '--group', 'nogroup', '--time_limit', '2', '--disable_proc',
 			'--iface_no_lo', '--cgroup_mem_max', str(50 * MB), '--cgroup_pids_max', '1', '--quiet',
-			'--', '/usr/bin/python3', '-q', 'traceface', '-s']
+			'--', '.venv/bin/python', '-q', 'traceface', '-s']
+	print(' '.join(args))
 	p = subprocess.run(args, input=code, capture_output=True, timeout=5)
 	return Response(p.stdout, content_type='text/html; charset=UTF-8')
 
